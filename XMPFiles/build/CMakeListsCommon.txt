@@ -368,7 +368,37 @@ message (STATUS " ${PROJECT_NAME} ")
 message (STATUS "===========================================================================")
 message (STATUS " OUTPUT_DIR = ${OUTPUT_DIR}")
 
+include(GNUInstallDirs)
+
+set(HEADER_DIR "${XMP_ROOT}/public/include")
+message (STATUS "Xmp header file folder ${HEADER_DIR}")
+
+#enum folder public header file
+file(GLOB_RECURSE HEADER_FILES
+    "${HEADER_DIR}/*.h"
+    "${HEADER_DIR}/*.hpp"
+    "${HEADER_DIR}/*.incl_cpp"
+)
+
+#set_target_properties(${TARGET_NAME} PROPERTIES
+#    PUBLIC_HEADER "${HEADER_FILES}"
+#)
+
+message(STATUS "Found header files:")
+foreach(f ${HEADER_FILES})
+    message(STATUS "  ${f}")
+endforeach()
+
 install(
     TARGETS ${TARGET_NAME}
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+)
+
+install(
+    DIRECTORY ${HEADER_DIR}/
+    DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+    FILES_MATCHING
+        PATTERN "*.h"
+        PATTERN "*.hpp"
+        PATTERN "*.incl_cpp"
 )
