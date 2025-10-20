@@ -367,3 +367,8 @@ message (STATUS "===============================================================
 message (STATUS " ${PROJECT_NAME} ")
 message (STATUS "===========================================================================")
 message (STATUS " OUTPUT_DIR = ${OUTPUT_DIR}")
+
+install(
+    TARGETS ${TARGET_NAME}
+    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+)
